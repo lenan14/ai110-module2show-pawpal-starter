@@ -2,7 +2,7 @@
 
 ## 1. System Design
 
-Three Core Actions:
+Three Core Actions a User Should Be Able to Perform:
 1. Enter owner and pet information - Owner creates a profile with available hours and pet details (name, type, age, special needs)
 2. Add and edit care tasks - Owner adds tasks (walk, feeding, medication, etc.) with duration and priority level
 3. Generate and view daily schedule - App creates an optimized daily plan that fits within owner's time, respects priorities, and explains the reasoning
@@ -14,7 +14,7 @@ Three Core Actions:
 
 UML Class Structure:
 
-My initial design includes four core classes and two enumerations:
+My initial design includes four core classes and two enumerations (or like a list of things in a specific order):
 
 1. Owner - Represents the pet owner
    - Attributes: name, daily_hours_available, preferences
@@ -31,7 +31,7 @@ My initial design includes four core classes and two enumerations:
    - Responsibilities: Define a schedulable activity with duration and importance
    - Methods: validate(), get_details()
 
-4. Scheduler - Main orchestrator for daily planning
+4. Scheduler - Main thing for daily planning
    - Attributes: owner (1), pets (many), tasks (many)
    - Responsibilities: Create optimized daily schedules, manage pets/tasks, explain reasoning
    - Methods: add_pet(), add_task(), generate_daily_plan(), explain_reasoning(), calculate_total_duration()
@@ -49,33 +49,33 @@ Key Design Decisions:
 
 During implementation in Phases 2-3, several design changes enhanced the system:
 
-1. **Added Task State Management (is_completed field)**
+1. Added Task State Management (is_completed field)
    - Original: Tasks were passive data containers
    - Change: Added is_completed boolean and mark_complete()/mark_incomplete() methods
-   - Why: Needed to track task completion for the daily workflow and enable recurring task creation
+   - Why: I needed it to track task completion for the daily workflow and enable recurring task creation
 
-2. **Added Scheduled Time Tracking (scheduled_time field)**
+2. Added Scheduled Time Tracking (scheduled_time field)
    - Original: No explicit time tracking per task
    - Change: Added optional scheduled_time field (format: "HH:MM")
-   - Why: Enables conflict detection and chronological task sorting, essential for a scheduler
+   - Why: It enables conflict detection and chronological task sorting, which is very essential for a scheduler
 
-3. **Extended Owner to Manage Pets**
+3. Extended Owner to Manage Pets
    - Original: Owner was minimal (just name + hours)
    - Change: Added pets list and add_pet()/get_pets() methods
-   - Why: Owner needed direct access to pets for the UI; makes data flow from UI → Owner → Scheduler cleaner
+   - Why: The owner needed direct access to pets for the UI; makes data flow from UI → Owner → Scheduler cleaner
 
-4. **Enhanced Scheduler with Task Filtering**
+4. Enhanced Scheduler with Task Filtering
    - Original: Only generate_daily_plan() and explain_reasoning()
    - Change: Added 8+ methods for filtering, sorting, conflict detection, recurrence handling
-   - Why: Real scheduling requires sorting by priority/time, detecting conflicts, handling recurring tasks
+   - Why: We see different scheduling systems today requiring sorting by priority/time, detecting conflicts, handling recurring tasks
 
-5. **Added Validation to Task Class**
+5. Added Validation to Task Class
    - Original: validate() was a stub
    - Change: Actually checks duration > 0, priority 1-5, valid repeat_frequency
-   - Why: Prevents invalid data from reaching the scheduler; critical for reliability
+   - Why: Prevents invalid data from reaching the scheduler, which is critical for reliability
 
-**Summary of Implementation vs. Initial Design**
-The skeleton provided excellent structure, but the real-world application required:
+Summary of Implementation vs. Initial Design
+The skeleton provided an excellent structure, but the real-world application required:
 - Task lifecycle methods (complete/incomplete)
 - Explicit time scheduling and conflict detection
 - Sorting and filtering algorithms
@@ -123,21 +123,19 @@ A busy owner cares most about whether tasks fit in their schedule. Among feasibl
 
 **b. Tradeoffs**
 
-**Tradeoff 1: Exact Time Matching vs. Duration Overlaps**
+Tradeoff 1: Exact Time Matching vs. Duration Overlaps
 
-*Current Implementation:* Conflict detection only flags tasks scheduled at the EXACT same time (e.g., "07:00").
+Current Implementation: Conflict detection only flags tasks scheduled at the EXACT same time (e.g., "07:00").
 - Code: `if task1.scheduled_time == task2.scheduled_time: conflicts.append(...)`
 
-*Better Approach:* Check for overlapping durations
+Better Approach: Check for overlapping durations
 - Example: "Walk 7:00-7:30" vs "Feed 7:20-7:30" = overlap, should warn
 
-*Why We Chose Exact Matching:*
+Why We Chose Exact Matching:
 - Task durations are estimates, not exact
 - For pet care, ~10 min flexibility is acceptable
 - Simpler algorithm, easier to debug
 - Sufficient for MVP; users can manually adjust
-
-*Trade-off Value:* 9/10 reasonable — good for a learning project
 
 ---
 
@@ -228,9 +226,13 @@ I used GitHub Copilot throughout this project in several key ways:
 - "Write a professional README explaining the system architecture and design decisions"
   → Produced comprehensive documentation with sections on algorithms and tradeoffs
 
+Which Copilot features were most effective for building your scheduler?
+
 **Most Valuable AI Feature:** Inline code generation in context (knowing what classes exist in the file)
 
 **b. Judgment and verification**
+
+Give one example of an AI suggestion you rejected or modified to keep your system design clean.
 
 **Example: Conflict Detection Implementation**
 
@@ -277,6 +279,10 @@ Rejected this approach. Instead, I store the `scheduled_time` ("07:00") and let 
 
 *Verification:*
 Tested with `test_scheduler_handle_recurring_task()` — task properly copies name, duration, priority, and maintains incomplete status. ✓
+
+How did using separate chat sessions for different phases help you stay organized?
+
+Summary: 
 
 **General Philosophy:**
 I accepted 85% of Copilot's suggestions as-is because they were well-reasoned. For the ~15% I modified:

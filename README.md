@@ -4,26 +4,26 @@ A intelligent pet care planning assistant built with Python and Streamlit. **Paw
 
 ## Features
 
-### 🐾 Core System
+### Core System
 - **Owner Management**: Track your available hours and preferences
 - **Pet Profiles**: Store pet details including species, age, and special needs
 - **Task Management**: Create tasks with duration, priority, and frequency
 - **Intelligent Scheduling**: Generate daily plans that respect time constraints and priorities
 
-### 📅 Smart Scheduling
+### Smart Scheduling
 - **Priority-based Planning**: Sort tasks by importance (1-5 scale)
 - **Time-based Scheduling**: Organize tasks chronologically
 - **Conflict Detection**: Identify overlapping task times
 - **Recurring Tasks**: Automatically create new instances of daily/weekly tasks
 - **Duration Tracking**: Ensure schedules fit within available time
 
-### ✅ Task Management
+### Task Management
 - **Completion Tracking**: Mark tasks complete and auto-generate recurring instances
 - **Pet-specific Tasks**: Assign tasks to specific pets or mark as general
 - **Filtering & Sorting**: View tasks by pet, status, or priority
 - **Task Details**: Descriptions, duration, priority, and type (walk, feeding, medication, etc.)
 
-### 📊 Analytics & Insights
+### Analytics & Insights
 - **Schedule Summary**: View total tasks and completion rates
 - **Time Distribution**: See how much time is needed by priority
 - **Pet Analytics**: Track tasks assigned to each pet
@@ -62,6 +62,9 @@ streamlit run app.py
 
 The app will open at `http://localhost:8501`. Start by creating an owner profile, adding pets, and building your task list.
 
+### 📸 Demo
+<a href="Lena Ngo Final Streamlit App.png" target="_blank"><img src='Lena Ngo Final Streamlit App.png' title='PawPal App' width='' alt='PawPal App' class='center-block' /></a>
+
 ### Run the CLI Demo
 
 ```bash
@@ -76,7 +79,7 @@ This demonstrates all system features in the terminal, showing:
 - Conflict detection
 - Task completion and recurrence
 
-## Testing
+## Testing PawPal+
 
 ### Run All Tests
 
@@ -88,23 +91,23 @@ python -m pytest tests/test_pawpal.py -v
 
 Our test suite includes **28+ tests** covering:
 
-✅ **Task Tests** (7 tests)
+**Task Tests** (7 tests)
 - Task creation and validation
 - Task completion/incomplete marking
 - Task detail formatting
 
-✅ **Pet Tests** (6 tests)
+**Pet Tests** (6 tests)
 - Pet creation with special needs
 - Constraint checking
 - Task management for pets
 - Pet information display
 
-✅ **Owner Tests** (4 tests)
+**Owner Tests** (4 tests)
 - Owner creation and availability
 - Pet management
 - Cross-pet task retrieval
 
-✅ **Scheduler Tests** (10 tests)
+**Scheduler Tests** (10 tests)
 - Task filtering (by pet, by completion status)
 - Priority and time-based sorting
 - Daily plan generation
@@ -112,7 +115,7 @@ Our test suite includes **28+ tests** covering:
 - Conflict detection (same-time overlaps)
 - Recurring task handling
 
-✅ **Integration Tests** (1 test)
+**Integration Tests** (1 test)
 - Full workflow from owner creation through plan generation
 
 ### Running Tests with Coverage
@@ -123,7 +126,7 @@ python -m pytest tests/test_pawpal.py --cov=pawpal_system
 
 ### Confidence Level
 
-**⭐⭐⭐⭐⭐ (5/5 stars)**
+**(5/5 stars)**
 
 All 28 tests pass with green checkmarks. The system has been thoroughly tested for:
 - Edge cases (empty task lists, invalid inputs, time conflicts)

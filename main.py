@@ -22,10 +22,10 @@ def print_separator(title: str = ""):
 def main():
     """Run the PawPal+ demo"""
     
-    print_separator("🐾 PawPal+ Demo")
+    print_separator("PawPal+ Demo")
     
     # Step 1: Create an Owner
-    print("1️⃣  Creating Owner...")
+    print("Creating Owner...")
     owner = Owner(
         name="Jordan",
         daily_hours_available=4.0,
@@ -135,7 +135,7 @@ def main():
     print(f"   Tasks loaded: {len(scheduler.tasks)}")
     
     # Step 5: Display today's schedule with explanation
-    print_separator("📅 Daily Plan")
+    print_separator("Daily Plan")
     
     plan = scheduler.generate_daily_plan()
     explanation = scheduler.explain_reasoning(plan)
@@ -187,7 +187,7 @@ def main():
                 print(f"   ✓ Created recurring task for tomorrow")
                 print(f"   New task: {new_task.get_details()}")
     
-    print_separator("✅ Demo Complete")
+    print_separator("Demo Complete")
     print(f"Total tasks in system: {len(scheduler.tasks)}")
     print(f"Incomplete tasks: {len(scheduler.get_incomplete_tasks())}")
 
